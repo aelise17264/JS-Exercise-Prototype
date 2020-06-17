@@ -78,7 +78,6 @@ function Person(name, age, stomach) {
     - STRETCH: A car which runs out of `fuel` while driving can't drive any more distance:
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
-
   function Car(model, milesPerGallon) {
       this.model = model;
       this.milesPerGallon = milesPerGallon; 
@@ -93,6 +92,15 @@ function Person(name, age, stomach) {
   carOne.fill(50);
   console.log(carOne.tank);
 
+//STRETCH
+
+Car.prototype.drive = function(distance){
+  this.odometer += distance;
+  this.tank = this.tank - distance/this.milesPerGallon;
+        if (this.tank == 0){
+      return `I ran out of fuel at ${this.odometer} miles!`
+    }
+}
 /*
   TASK 3
     - Write a Baby constructor subclassing Person.
