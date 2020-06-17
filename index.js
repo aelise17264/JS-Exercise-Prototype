@@ -55,9 +55,8 @@ function Person(name, age, stomach) {
       Person.prototype.toString = function(){
         return `${this.name}, ${this.age}`;
         }
-        const personOne = new Person('Anna', 29);
-        const personTwo = new Person('Candice', 29);
-        const personThree = new Person ('Ian', 32);
+        const personOne = new Person('Anna', 29, []);
+        
         
         console.log(personOne.toString());
         personOne.eat('poke bowl');
@@ -80,9 +79,19 @@ function Person(name, age, stomach) {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
+  function Car(model, milesPerGallon) {
+      this.model = model;
+      this.milesPerGallon = milesPerGallon; 
+      this.tank = 0;
+      this.odometer = 0;         
+  }
+  Car.prototype.fill = function(gallons){
+     return this.tank += gallons;
+  };
 
-}
+  const carOne = new Car('Buick', 50);
+  carOne.fill(50);
+  console.log(carOne.tank);
 
 /*
   TASK 3
@@ -91,18 +100,37 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
+function Baby(name, age, favoriteToy) {
+ this.name = name; 
+  this.age = age; 
+  
+  Person.call(name, age, this);
+  this.favoriteToy = favoriteToy;  
+  }
 
+  Baby.prototype = Object.create(Person.prototype);
+
+
+Baby.prototype.play = function(){
+  return `Playing with ${this.favoriteToy}`;
 }
+
+const babyOne = new Baby('Cammie', 3,'Barbie');
+
+    babyOne.play()
+
 
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Global/Window binding - value of 'this' will be the console
+  2. Implicit binding - when a function is called by a proceeding dot, the object left 
+  of the dot is the value of "this"
+  3. New binding - when a constructor function is used "this" referres to the spceific
+  instance of the object that is created & returned by the function
+  4. Explicit Binding - uses .call or .apply to overwrite what "this" points to by 
+  assigning it to another object
 */
 
 
